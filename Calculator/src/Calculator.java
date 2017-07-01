@@ -19,7 +19,7 @@ public class Calculator {
 				number = requestNumber();
 				calculator.doOperation(command, number);
 			}
-				command = requestOperation();
+			command = requestOperation();
 		}
 	}
 	
