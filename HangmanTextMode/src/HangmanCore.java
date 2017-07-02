@@ -27,21 +27,28 @@ public class HangmanCore {
 		return m_triesLeft; 
 	}
 	
-	public void play(Character letter)
+	public String playedLetters()
+	{
+		return m_playedLetters.toString();
+	}
+	
+	public boolean play(Character letter)
 	{
 		if(Character.isLetter(letter) == false)
-			return; // Do nothing
+			return false; // Do nothing
 		
 		letter = Character.toUpperCase(letter);
 		
 		if(m_playedLetters.contains(letter) == false)
+		{
 			m_playedLetters.add(letter);
 			if (m_word.indexOf(letter) ==  -1) // -1 means not found
-			{
 				m_triesLeft--;
-				updateState();
-			}
 			
+			updateState();
+			return true;
+		}
+		return false;
 	}
 	
 	public STATE state()
@@ -53,7 +60,7 @@ public class HangmanCore {
 	{
 		String word = " ";
 		for (Character letter: m_word.toCharArray())
-			if(m_playedLetters.contains(letter) == true)
+			if(m_playedLetters.contains(letter) == true || m_state != STATE.PLAYING)
 				word += letter.toString() + ' ';
 			else
 				word += Character.toString('_') + ' ';
@@ -67,8 +74,8 @@ public class HangmanCore {
 		
 		boolean everythingFound = true;
 		for(Character letter: m_word.toCharArray())
-		{
-			if(m_playedLetters.contains(letter) == false)
+		{   // Remember that last character will be \0 -- not a letter
+			if( (m_playedLetters.contains(letter) == false) && Character.isLetter(letter))
 			{
 				everythingFound = false;
 				break;

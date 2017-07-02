@@ -13,9 +13,11 @@ public class HangmanGame {
 		{
 			System.out.println("Word:" + game.word());
 			System.out.println("Tries Left: " + game.triesLeft());
+			System.out.println("Played letters: " + game.playedLetters());
 			System.out.print("[letter] ? ");
 			String line = bufferedReader.readLine();
-			game.play(line.charAt(0));
+			if (game.play(line.charAt(0)) == false) 
+				System.out.println("ERROR: Invalid or already played letter");
 
 			switch (game.state()) {
 			case GAME_OVER:
@@ -23,7 +25,7 @@ public class HangmanGame {
 				System.out.println("Word:" + game.word());
 				break;
 			case WIN:
-				System.out.println("You win!");
+				System.out.println("YOU WIN!");
 				System.out.println("Word:" + game.word());
 				break;
 			default:
