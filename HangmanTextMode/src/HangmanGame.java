@@ -1,13 +1,12 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class HangmanGame {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
-		HangmanCore game = new HangmanCore();
+		HangmanCore game = new HangmanCore(RandomWord.get(), 8);
 
 		while(game.state() == STATE.PLAYING)
 		{

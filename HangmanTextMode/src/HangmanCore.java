@@ -9,17 +9,12 @@ public class HangmanCore {
 	private List<Character> m_playedLetters;
 	private int m_triesLeft;
 	
-	private HangmanCore(String word, int nTries)
+	public HangmanCore(String word, int nTries)
 	{
 		m_state = STATE.PLAYING;
 		m_word = word.toUpperCase();
 		m_playedLetters = new ArrayList<Character>();
 		m_triesLeft = nTries;
-	}
-	
-	public HangmanCore()
-	{
-		this("test", 8);
 	}
 	
 	public int triesLeft() 
