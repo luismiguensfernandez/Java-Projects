@@ -1,22 +1,26 @@
 package io.github.luismiguensfernandez;
 
 import android.app.Activity;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedMap;
 
 public class MainActivity extends Activity{
 
     private TextView m_displayWord;
     private ImageView m_hangmanImage;
-    private SortedMap<Character, Button> m_keyboard;
+    private Map<Character, Button> m_keyboard;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +48,15 @@ public class MainActivity extends Activity{
         LinearLayout middleLayout = new LinearLayout(this);
         middleLayout.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,
                         50.0f));
         middleLayout.setOrientation(LinearLayout.VERTICAL);
 
         LinearLayout bottomLayout = new LinearLayout(this);
         bottomLayout.setLayoutParams(
                 new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,
                         25.0f));
-        bottomLayout.setOrientation(LinearLayout.VERTICAL);
 
         fullLayout.addView(topLayout);
         fullLayout.addView(middleLayout);
@@ -64,14 +67,27 @@ public class MainActivity extends Activity{
         m_displayWord.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        //m_displayWord.setAutoSizeTextTypeUniformWithConfiguration(  TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        m_displayWord.setTextSize(35.0f);
+
         TextView blabla2 =  new TextView(this);
-        TextView blabla3 =  new TextView(this);
         blabla2.setText("xxxxxxxxxxxxxxxx");
-        blabla3.setText("xxxxxxxxxxxxxxxxxxxxxxxx");
         topLayout.addView(m_displayWord);
         middleLayout.addView(blabla2);
-        bottomLayout.addView(blabla3);
+
+        GridLayout keyboardLayout = new GridLayout(this);
+        keyboardLayout.setColumnCount(6);
+
+        bottomLayout.addView(keyboardLayout);
+
+        m_keyboard = new HashMap<>();
+        for (char letter = 'A'; letter <= 'Z'; ++letter)
+        {
+            Button button = new Button(this);
+            button.setText(Character.toString(letter));
+            m_keyboard.put(letter, button);
+            keyboardLayout.addView(button);
+            button.setEnabled(false);
+        }
 
         return fullLayout;
     }
