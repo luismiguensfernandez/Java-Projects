@@ -21,6 +21,6 @@ public class RandomWord {
 	    reader.close();
 	    
 	    Random randomGenerator = new Random();
-	    return words.get(randomGenerator.nextInt(words.size())); 
+	    return words.get(randomGenerator.nextInt(words.size()-1)); 
 	}
 }
